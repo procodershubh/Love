@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell($node = \\(Get-Command node -ErrorAction SilentlyContinue\\); if\\($node\\){ node --check \"js\\\\app.js\"; if\\($?\\){ \"JS OK\" } } else { \"node not found\" })",
+      "PowerShell($p = Test-Path \".\\\\node_modules\\\\playwright\"; $g = \\(npm ls -g --depth=0 2>$null | Select-String -Pattern \"playwright|puppeteer\"\\); \"local playwright: $p\"; \"global: $g\"; \\(Get-Command npx -ErrorAction SilentlyContinue\\) | ForEach-Object { \"npx available\" })"
+    ]
+  }
+}

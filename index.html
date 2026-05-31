@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<title>Love Quest ✦ For You</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@300;400;500;600;700&family=Caveat:wght@500;700&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Dancing+Script:wght@500;600;700&display=swap" rel="stylesheet">
+
+<!-- GSAP for smooth animations -->
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+<!-- canvas-confetti for the surprise -->
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+<!-- Howler.js for audio -->
+<script src="https://cdn.jsdelivr.net/npm/howler@2.2.4/dist/howler.min.js"></script>
+
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<!-- Ambient layers -->
+<div class="bg-ambient" id="bgAmbient"></div>
+<div class="particles" id="particles"></div>
+
+<!-- Sound toggle -->
+<button class="sound-toggle" id="soundToggle" aria-label="Toggle music">
+  <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+    <path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/>
+  </svg>
+</button>
+
+<!-- ========== SCREEN: INTRO ========== -->
+<section class="screen active" id="screen-intro">
+  <div class="screen-bg" style="background-image:url('https://images.unsplash.com/photo-1518621736915-f3b1c41bfd00?auto=format&fit=crop&w=1920&q=80')"></div>
+  <div class="screen-overlay"></div>
+
+  <div class="intro-wrap">
+    <p class="kicker">Made with ♥ for you</p>
+    <h1 class="display">Love<br/><em>Quest</em></h1>
+    <p class="lede">Five little games. One big surprise.<br/>Will you play?</p>
+    <button class="cta" id="btnIntroStart">
+      <span>Begin →</span>
+    </button>
+    <p class="micro">turn the sound up · best on full screen</p>
+  </div>
+</section>
+
+<!-- ========== SCREEN: NAME ========== -->
+<section class="screen" id="screen-name">
+  <div class="screen-bg" style="background-image:url('https://images.unsplash.com/photo-1518621736915-f3b1c41bfd00?auto=format&fit=crop&w=1920&q=80&sat=-20')"></div>
+  <div class="screen-overlay"></div>
+
+  <div class="name-wrap">
+    <p class="kicker">First, my love...</p>
+    <h2 class="display-md">What should I call you?</h2>
+    <div class="input-row">
+      <input type="text" id="userName" placeholder="your name..." maxlength="20" autocomplete="off"/>
+      <button class="cta" id="btnNameNext">Continue</button>
+    </div>
+    <p class="micro">this quest is just for you ✿</p>
+  </div>
+</section>
+
+<!-- ========== SCREEN: MAP ========== -->
+<section class="screen" id="screen-map">
+  <div class="screen-bg map-bg"></div>
+  <div class="screen-overlay subtle"></div>
+
+  <!-- Cute floating elements -->
+  <div class="map-decor" id="mapDecor"></div>
+
+  <header class="map-header">
+    <p class="kicker">Welcome to your quest, <span id="nameDisplay">love</span></p>
+    <h2 class="display-md">Follow the path of love</h2>
+    <p class="lede sm">Unlock each level to reach the surprise</p>
+  </header>
+
+  <div class="quest-map">
+    <!-- SVG glowing path with cute decorations -->
+    <svg class="path-svg" viewBox="0 0 1000 600" preserveAspectRatio="xMidYMid meet">
+      <defs>
+        <linearGradient id="pathGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#ffb88e"/>
+          <stop offset="50%" stop-color="#ffd29c"/>
+          <stop offset="100%" stop-color="#c8a8e8"/>
+        </linearGradient>
+        <filter id="pathGlow"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+        <radialGradient id="cloudGrad">
+          <stop offset="0" stop-color="rgba(255,255,255,0.5)"/>
+          <stop offset="1" stop-color="rgba(255,255,255,0)"/>
+        </radialGradient>
+      </defs>
+
+      <!-- Decorative clouds along the path -->
+      <ellipse cx="200" cy="200" rx="100" ry="35" fill="url(#cloudGrad)" opacity="0.6"/>
+      <ellipse cx="800" cy="380" rx="120" ry="40" fill="url(#cloudGrad)" opacity="0.5"/>
+      <ellipse cx="450" cy="100" rx="80" ry="30" fill="url(#cloudGrad)" opacity="0.4"/>
+
+      <!-- Tiny decorative hearts scattered -->
+      <text x="160" y="350" font-size="20" fill="#ff9ec4" opacity="0.5">♥</text>
+      <text x="380" y="450" font-size="14" fill="#ffd29c" opacity="0.6">♥</text>
+      <text x="600" y="180" font-size="18" fill="#ff9ec4" opacity="0.5">♡</text>
+      <text x="820" y="500" font-size="16" fill="#c8a8e8" opacity="0.6">♥</text>
+      <text x="120" y="200" font-size="14" fill="#ffd29c" opacity="0.5">✦</text>
+      <text x="500" y="540" font-size="16" fill="#ff9ec4" opacity="0.5">✿</text>
+      <text x="700" y="120" font-size="14" fill="#c8a8e8" opacity="0.6">✦</text>
+
+      <!-- background dotted path -->
+      <path d="M 100 480 Q 220 380, 280 320 T 500 220 T 720 280 T 900 120" 
+            fill="none" stroke="rgba(255,255,255,0.18)" stroke-width="3" stroke-dasharray="2 10" stroke-linecap="round"/>
+      <!-- glowing progress path -->
+      <path id="progressPath" d="M 100 480 Q 220 380, 280 320 T 500 220 T 720 280 T 900 120" 
+            fill="none" stroke="url(#pathGrad)" stroke-width="4" stroke-linecap="round" filter="url(#pathGlow)"
+            stroke-dasharray="1500" stroke-dashoffset="1500"/>
+    </svg>
+
+    <!-- Mascot bunny on the path -->
+    <div class="map-bunny" id="mapBunny" style="--x:10%;--y:80%">
+      <svg viewBox="0 0 80 100" width="60" height="75" xmlns="http://www.w3.org/2000/svg">
+        <ellipse cx="28" cy="18" rx="7" ry="18" fill="#fff" stroke="#c8a8e8" stroke-width="1.5"/>
+        <ellipse cx="28" cy="20" rx="3" ry="11" fill="#ffd6e3"/>
+        <ellipse cx="52" cy="18" rx="7" ry="18" fill="#fff" stroke="#c8a8e8" stroke-width="1.5"/>
+        <ellipse cx="52" cy="20" rx="3" ry="11" fill="#ffd6e3"/>
+        <circle cx="40" cy="50" r="24" fill="#fff" stroke="#c8a8e8" stroke-width="1.5"/>
+        <ellipse cx="26" cy="56" rx="5" ry="3" fill="#ffb3c6" opacity=".8"/>
+        <ellipse cx="54" cy="56" rx="5" ry="3" fill="#ffb3c6" opacity=".8"/>
+        <path d="M 30 46 Q 33 43 36 46" stroke="#5b3d8e" stroke-width="2" fill="none" stroke-linecap="round"/>
+        <path d="M 44 46 Q 47 43 50 46" stroke="#5b3d8e" stroke-width="2" fill="none" stroke-linecap="round"/>
+        <path d="M 38 52 L 42 52 L 40 55 Z" fill="#ff8aab"/>
+        <path d="M 40 55 Q 37 60 35 58 M 40 55 Q 43 60 45 58" stroke="#5b3d8e" stroke-width="1.4" fill="none" stroke-linecap="round"/>
+      </svg>
+    </div>
+
+    <!-- Level stones -->
+    <button class="stone unlocked" data-level="1" style="--x:10%;--y:80%">
+      <span class="stone-inner">
+        <span class="stone-num">1</span>
+        <span class="stone-glow"></span>
+      </span>
+      <span class="stone-label">Word Whisper</span>
+    </button>
+
+    <button class="stone locked" data-level="2" style="--x:28%;--y:53%">
+      <span class="stone-inner">
+        <span class="stone-num">2</span>
+        <span class="stone-glow"></span>
+      </span>
+      <span class="stone-label">Memory Match</span>
+    </button>
+
+    <button class="stone locked" data-level="3" style="--x:50%;--y:37%">
+      <span class="stone-inner">
+        <span class="stone-num">3</span>
+        <span class="stone-glow"></span>
+      </span>
+      <span class="stone-label">Photo Puzzle</span>
+    </button>
+
+    <button class="stone locked" data-level="4" style="--x:72%;--y:47%">
+      <span class="stone-inner">
+        <span class="stone-num">4</span>
+        <span class="stone-glow"></span>
+      </span>
+      <span class="stone-label">Heart Rain</span>
+    </button>
+
+    <button class="stone locked" data-level="5" style="--x:90%;--y:20%">
+      <span class="stone-inner">
+        <span class="stone-num">5</span>
+        <span class="stone-glow"></span>
+      </span>
+      <span class="stone-label">Final Quest</span>
+    </button>
+  </div>
+
+  <div class="map-footer">
+    <div class="progress-display">
+      <span id="progressCount">0</span>/5 levels complete
+    </div>
+    <button class="cta-ghost" id="btnSurprise" disabled>Open Surprise ✨</button>
+  </div>
+</section>
+
+<!-- ========== LEVEL 1: WORD WHISPER ========== -->
+<section class="screen" id="screen-l1">
+  <div class="screen-bg" style="background-image:url('https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?auto=format&fit=crop&w=1920&q=80')"></div>
+  <div class="screen-overlay"></div>
+
+  <div class="level-wrap">
+    <p class="kicker">Level 1 · Word Whisper</p>
+    <h2 class="display-md">What do I call you<br/>in my heart?</h2>
+    <p class="lede">say it the way only I say it...</p>
+
+    <div class="input-row glass">
+      <input type="text" id="l1Answer" placeholder="whisper it here..." autocomplete="off"/>
+      <button class="cta" id="btnL1Submit">Tell me</button>
+    </div>
+
+    <p class="hint-text" id="l1Hint">3 tries — listen to your heart ♥</p>
+    <p class="error-msg" id="l1Error"></p>
+
+    <button class="back-link" data-back="screen-map">← back to map</button>
+  </div>
+</section>
+
+<!-- ========== LEVEL 2: MEMORY MATCH ========== -->
+<section class="screen" id="screen-l2">
+  <div class="screen-bg" style="background-image:url('https://images.unsplash.com/photo-1494774157365-9e04c6720e47?auto=format&fit=crop&w=1920&q=80')"></div>
+  <div class="screen-overlay"></div>
+
+  <div class="level-wrap wide">
+    <p class="kicker">Level 2 · Memory Match</p>
+    <h2 class="display-md">Find every pair</h2>
+    <p class="lede">flip the cards · match the symbols of us</p>
+
+    <div class="hud">
+      <div class="hud-pill">⏱ <span id="l2Time">0:00</span></div>
+      <div class="hud-pill">moves <span id="l2Moves">0</span></div>
+      <div class="hud-pill">pairs <span id="l2Pairs">0</span>/8</div>
+    </div>
+
+    <div class="memory-grid" id="memoryGrid"></div>
+
+    <button class="back-link" data-back="screen-map">← back to map</button>
+  </div>
+</section>
+
+<!-- ========== LEVEL 3: PHOTO PUZZLE ========== -->
+<section class="screen" id="screen-l3">
+  <div class="screen-bg" style="background-image:url('https://images.unsplash.com/photo-1518621012420-8ab10887ed2a?auto=format&fit=crop&w=1920&q=80')"></div>
+  <div class="screen-overlay"></div>
+
+  <div class="level-wrap wide">
+    <p class="kicker">Level 3 · Photo Puzzle</p>
+    <h2 class="display-md">Piece us back together</h2>
+    <p class="lede">drag each piece into place ✿ they snap when close</p>
+
+    <div class="hud">
+      <div class="hud-pill">solved <span id="l3Solved">0</span>/9</div>
+      <button class="hud-pill" id="l3Reset">↻ shuffle</button>
+    </div>
+
+    <div class="puzzle-layout">
+      <div class="puzzle-side">
+        <svg id="puzzleSvg" class="puzzle-svg" viewBox="0 0 600 600" preserveAspectRatio="xMidYMid meet"></svg>
+      </div>
+      <div class="puzzle-preview-side">
+        <p class="preview-label">target ↓</p>
+        <div class="preview-frame">
+          <img id="puzzlePreviewImg" src="assets/images/puzzle/puzzle.png" alt="target"/>
+        </div>
+      </div>
+    </div>
+
+    <button class="back-link" data-back="screen-map">← back to map</button>
+  </div>
+</section>
+
+<!-- ========== LEVEL 4: HEART RAIN ========== -->
+<section class="screen" id="screen-l4">
+  <div class="screen-bg" style="background-image:url('https://images.unsplash.com/photo-1518199266791-5375a83190b7?auto=format&fit=crop&w=1920&q=80')"></div>
+  <div class="screen-overlay"></div>
+
+  <div class="level-wrap">
+    <p class="kicker">Level 4 · Heart Rain</p>
+    <h2 class="display-md">Catch enough love<br/>to fill my heart</h2>
+
+    <!-- Big heart with progress fill -->
+    <div class="big-heart-tracker">
+      <svg viewBox="0 0 200 180" width="240" height="220">
+        <defs>
+          <linearGradient id="heartFill" x1="0%" y1="100%" x2="0%" y2="0%">
+            <stop offset="0%" stop-color="#ff5a8a"/>
+            <stop offset="100%" stop-color="#ff9ec4"/>
+          </linearGradient>
+          <clipPath id="heartClip">
+            <path d="M100,30 C100,30 70,0 40,15 C10,30 0,60 20,90 C40,130 100,170 100,170 C100,170 160,130 180,90 C200,60 190,30 160,15 C130,0 100,30 100,30 Z"/>
+          </clipPath>
+        </defs>
+        <!-- Heart outline -->
+        <path d="M100,30 C100,30 70,0 40,15 C10,30 0,60 20,90 C40,130 100,170 100,170 C100,170 160,130 180,90 C200,60 190,30 160,15 C130,0 100,30 100,30 Z"
+              fill="rgba(255,255,255,0.08)" stroke="#ff9ec4" stroke-width="2.5"/>
+        <!-- Fill rectangle (height animates) -->
+        <rect id="heartFillRect" x="0" y="180" width="200" height="0" fill="url(#heartFill)" clip-path="url(#heartClip)"/>
+      </svg>
+      <p class="heart-counter"><span id="l4Score">0</span> / 15 hearts</p>
+    </div>
+
+    <div class="hud">
+      <div class="hud-pill">⏱ <span id="l4Timer">35</span>s</div>
+      <div class="hud-pill">missed <span id="l4Miss">0</span></div>
+    </div>
+
+    <button class="cta" id="btnL4Start">Start ♥</button>
+    <p class="hint-text">tap pink hearts ♥ avoid dark ones</p>
+
+    <div class="rain-zone" id="rainZone"></div>
+
+    <button class="back-link" data-back="screen-map">← back to map</button>
+  </div>
+</section>
+
+<!-- ========== LEVEL 5: CONSTELLATION OF LOVE ========== -->
+<section class="screen" id="screen-l5">
+  <div class="screen-bg" style="background-image:url('https://images.unsplash.com/photo-1419242902214-272b3f66ee7a?auto=format&fit=crop&w=1920&q=80')"></div>
+  <div class="screen-overlay dark"></div>
+
+  <div class="level-wrap">
+    <p class="kicker">Level 5 · Constellation of Love</p>
+    <h2 class="display-md">Connect our stars</h2>
+    <p class="lede sm">tap the glowing stars in order — draw the shape of us ✦</p>
+
+    <div class="hud">
+      <div class="hud-pill">stars <span id="l5Count">0</span>/<span id="l5Total">0</span></div>
+      <button class="hud-pill" id="l5Reset">↻ restart</button>
+    </div>
+
+    <div class="constellation-stage" id="constellationStage">
+      <svg id="constellationSvg" viewBox="0 0 440 420" preserveAspectRatio="xMidYMid meet"></svg>
+      <div class="constel-glint" id="constelGlint"></div>
+    </div>
+
+    <p class="hint-text" id="l5Hint">tap star ① to begin ✦</p>
+
+    <button class="back-link" data-back="screen-map">← back to map</button>
+  </div>
+</section>
+
+<!-- ========== FINAL SURPRISE ========== -->
+<section class="screen surprise" id="screen-surprise">
+  <div class="screen-bg" style="background-image:url('https://images.unsplash.com/photo-1530177321613-c34e0a16cb6f?auto=format&fit=crop&w=1920&q=80')"></div>
+  <div class="screen-overlay dark"></div>
+
+  <!-- floating sparks behind everything -->
+  <div class="surprise-sparks" id="surpriseSparks"></div>
+
+  <!-- STAGE 1: the parchment letter -->
+  <div class="surprise-stage" id="stageLetter">
+    <p class="kicker glow" id="surpriseHello">For you</p>
+
+    <div class="scroll-wrap" id="scrollWrap">
+      <div class="scroll-cap top"></div>
+      <div class="parchment" id="parchment">
+        <div class="wax-seal" id="waxSeal">♥</div>
+        <h1 class="letter-head">A Love Letter</h1>
+        <div class="letter-rule"></div>
+        <p class="letter-body" id="letterText"></p>
+        <p class="letter-sign" id="letterSign"></p>
+      </div>
+      <div class="scroll-cap bottom"></div>
+    </div>
+
+    <button class="cta big" id="btnSeeMemories"><span>See our memories ✿</span></button>
+  </div>
+
+  <!-- STAGE 2: the photo gallery -->
+  <div class="surprise-stage" id="stagePhotos" hidden>
+    <p class="kicker glow">Our little forever</p>
+    <h2 class="display-md glow">Moments of <em>us</em></h2>
+
+    <div class="gallery" id="gallery">
+      <div class="gallery-frame" id="galleryFrame">
+        <img id="galleryImg" src="assets/images/memories/memory-1.JPG" alt="memory"/>
+        <div class="gallery-shine"></div>
+        <div class="gallery-caption" id="galleryCaption">memory 1</div>
+      </div>
+      <button class="gallery-nav prev" id="galPrev" aria-label="previous">‹</button>
+      <button class="gallery-nav next" id="galNext" aria-label="next">›</button>
+      <div class="gallery-dots" id="galleryDots"></div>
+    </div>
+
+    <div class="surprise-actions">
+      <button class="cta-ghost" id="btnBackToLetter">← the letter</button>
+      <button class="cta big" id="btnReplay"><span>Play Again ✿</span></button>
+    </div>
+\  </div>
+</section>
+
+<!-- ========== INSTRUCTIONS MODAL ========== -->
+<div class="instr-overlay" id="instrOverlay">
+  <div class="instr-card">
+    <p class="instr-tag" id="instrTag">Level 1</p>
+    <h3 class="instr-title" id="instrTitle">How to play</h3>
+    <div class="instr-body" id="instrBody"></div>
+    <button class="cta" id="btnInstrStart">Got it · Let's play →</button>
+  </div>
+</div>
+
+<!-- Your settings (names, hints) live in assets/config.json -->
+<script src="js/app.js"></script>
+</body>
+</html>

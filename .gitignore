@@ -1,0 +1,30 @@
+# ───────────────────────────────────────────────
+#  Love Quest — .gitignore
+# ───────────────────────────────────────────────
+
+# Personal photos — keep these private so they never get pushed.
+# The site falls back to pretty placeholders when they're missing,
+# so it still runs fine without them.
+assets/images/memories/*
+assets/images/puzzle/*
+# ...but keep the folders themselves in the repo
+!assets/images/memories/.gitkeep
+!assets/images/puzzle/.gitkeep
+
+# Optional sound files (often large / copyrighted)
+assets/sounds/*.mp3
+assets/sounds/*.wav
+assets/sounds/*.ogg
+
+# OS / editor junk
+.DS_Store
+Thumbs.db
+desktop.ini
+*.swp
+*~
+.vscode/
+.idea/
+
+# Logs
+*.log
+npm-debug.log*
