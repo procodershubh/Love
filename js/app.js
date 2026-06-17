@@ -16,8 +16,8 @@ const state = {
 const TOTAL_LEVELS = 5;
 // Names she can type for Level 1 — edit these in assets/config.json (no need to touch this file).
 // These stay as the fallback defaults if config.json is missing or can't be loaded.
-let ALLOWED_NAMES = ['pichu','chuhuu','pie','chuhu','chuu','piee'];
-let LEVEL1_HINT = '💡 hint: starts with "p" or "ch"...';
+let ALLOWED_NAMES = ['sweetu','Sweetu','bacha','Bacha','Babu','Babu'];
+let LEVEL1_HINT = '💡 hint: starts with "s" or "b"...';
 
 function applyConfig(cfg){
   if(!cfg) return;
@@ -139,8 +139,7 @@ const LOVE_LETTER = `My dearest [NAME],
 
 I made all of this — the path, the games, the silly puzzles — for one reason. To say what I sometimes forget to say out loud.
 
-You are my favorite chapter of every day. The quiet ones, the loud ones, the ones where I forget my keys and you laugh at me anyway.
-
+You are my favorite chapter of every day. The quiet ones, the loud ones,You are my Precious things, you are my acha bacha,
 Thank you for being mine.
 I love you. Forever and a day. ✿`;
 
@@ -1318,10 +1317,10 @@ const LETTER_SIGN = 'Forever & a day,\nyours ♥';
 const GALLERY = [
   { src: 'assets/images/memories/memory-1.JPG',  caption: 'where it all began ✿' },
   { src: 'assets/images/memories/memory-2.JPG',  caption: 'just us ♥' },
-  { src: 'assets/images/memories/memory-3.jpeg', caption: 'that laugh of yours' },
-  { src: 'assets/images/memories/memory-4.jpeg', caption: 'my favorite view' },
+  { src: 'assets/images/memories/memory-3.jpeg', caption: 'Mera Bacha' },
+  { src: 'assets/images/memories/memory-4.jpeg', caption: 'Meri Jaan' },
   { src: 'assets/images/memories/memory-5.jpeg', caption: 'every little moment' },
-  { src: 'assets/images/memories/memory-6.jpeg', caption: 'forever to go ✦' },
+  { src: 'assets/images/memories/memory-6.jpeg', caption: 'love✦' },
 ];
 
 let surpriseTimers = [];
