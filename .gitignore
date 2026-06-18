@@ -8,8 +8,8 @@
 assets/images/memories/*
 assets/images/puzzle/*
 # ...but keep the folders themselves in the repo
-!assets/images/memories/.gitkeep
-!assets/images/puzzle/.gitkeep
+# !assets/images/memories/.gitkeep
+# !assets/images/puzzle/.gitkeep
 
 # Optional sound files (often large / copyrighted)
 assets/sounds/*.mp3
