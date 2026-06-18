@@ -5,8 +5,8 @@
 # Personal photos — keep these private so they never get pushed.
 # The site falls back to pretty placeholders when they're missing,
 # so it still runs fine without them.
-assets/images/memories/*
-assets/images/puzzle/*
+# assets/images/memories/*
+# assets/images/puzzle/*
 # ...but keep the folders themselves in the repo
 # !assets/images/memories/.gitkeep
 # !assets/images/puzzle/.gitkeep
